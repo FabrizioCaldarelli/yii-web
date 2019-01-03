@@ -59,11 +59,11 @@ class AssetBundleTest extends \yii\tests\TestCase
 
         return $this->app->createObject([
             '__class' => View::class,
-            'assetManager' => $this->app->createObject([
+            'assetManager' => $this->app->createObject( array_merge([
                 '__class' => AssetManager::class,
                 'basePath' => '@testAssetsPath',
                 'baseUrl' => '@testAssetsUrl',
-            ]),
+            ], $config) ),
         ]);
     }
 
@@ -153,13 +153,12 @@ class AssetBundleTest extends \yii\tests\TestCase
         $view = $this->getView();
         $am = $view->assetManager;
 
-        $bundle = new TestSourceAsset([
-            'publishOptions' => [
-                'only' => [
-                    'js/*',
-                ],
+        $bundle = new TestSourceAsset();
+        $bundle->publishOptions = [
+            'only' => [
+                'js/*',
             ],
-        ]);
+        ];
         $bundle->publish($am);
 
         $notNeededFilesDir = dirname($bundle->basePath . DIRECTORY_SEPARATOR . $bundle->css[0]);
