@@ -18,9 +18,15 @@ use yii\tests\TestCase;
  */
 class RequestTest extends TestCase
 {
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->mockWebApplication();
+    }  
+        
     public function testParseAcceptHeader()
     {
-        $request = new Request();
+        $request = new Request($this->app);
 
         $this->assertEquals([], $request->parseAcceptHeader(' '));
 

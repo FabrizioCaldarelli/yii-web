@@ -76,7 +76,8 @@ class MultipartFormDataParserTest extends TestCase
             'name' => 'value',
         ];
 
-        $request = new Request([
+        $request = $this->factory->create([
+            '__class' => Request::class,
             'rawBody' => 'should not matter',
             'headers' => [
                 'content-type' => ['multipart/form-data; boundary=---12345']
@@ -106,7 +107,8 @@ class MultipartFormDataParserTest extends TestCase
         $contentType = 'multipart/form-data; boundary=' . $boundary;
         $rawBody = "--{$boundary}\nContent-Disposition: form-data; name=\"title\"\r\ntest-title--{$boundary}--";
 
-        $request = new Request([
+        $request = $this->factory->create([
+            '__class' => Request::class,
             'rawBody' => $rawBody,
             'headers' => [
                 'content-type' => [$contentType]
@@ -134,7 +136,8 @@ class MultipartFormDataParserTest extends TestCase
         $rawBody .= "--{$boundary}\nContent-Disposition: form-data; name=\"thirdFile\"; filename=\"third-file.txt\"\nContent-Type: text/plain\r\n\r\nthird file content";
         $rawBody .= "--{$boundary}--";
 
-        $request = new Request([
+        $request = $this->factory->create([
+            '__class' => Request::class,
             'rawBody' => $rawBody,
             'headers' => [
                 'content-type' => [$contentType]
@@ -159,7 +162,8 @@ class MultipartFormDataParserTest extends TestCase
         $rawBody .= "--{$boundary}\nContent-Disposition: form-data; name=\"thirdFile\"; filename=\"third-file.txt\"\nContent-Type: text/plain\r\n\r\nthird file with too long file content";
         $rawBody .= "--{$boundary}--";
 
-        $request = new Request([
+        $request = $this->factory->create([
+            '__class' => Request::class,
             'rawBody' => $rawBody,
             'headers' => [
                 'content-type' => [$contentType]
@@ -196,7 +200,8 @@ class MultipartFormDataParserTest extends TestCase
         $rawBody .= "\r\n--{$boundary}\nContent-Disposition: form-data; name=\"someFile\"; filename=\"some-file.txt\"\nContent-Type: text/plain\r\n\r\nsome file content";
         $rawBody .= "\r\n--{$boundary}--";
 
-        $request = new Request([
+        $request = $this->factory->create([
+            '__class' => Request::class,
             'rawBody' => $rawBody,
             'headers' => [
                 'content-type' => [$contentType]
